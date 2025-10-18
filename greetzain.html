@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Zain ❤️</title>
+    <style>
+        :root {
+            --pink: #ff4d79;
+            --red: #ff1a1a;
+            --white: #fff;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ffb3c1;
+            font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        h1 {
+            color: #c73737;
+            font-size: clamp(2rem, 6vw, 3rem);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin: 0 0 2rem 0;
+        }
+
+        .buttons-container {
+            position: relative;
+            margin: 3rem 0;
+            height: 60px;
+        }
+
+        button {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            min-width: 140px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            position: fixed;
+        }
+
+        #yesBtn {
+            background: var(--pink);
+            color: var(--white);
+            z-index: 1;
+        }
+
+        #noBtn {
+            background: var(--red);
+            color: var(--white);
+            z-index: 2;
+            transition: all 0.6s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        }
+
+        .message {
+            display: none;
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.15);
+            animation: fadeIn 0.6s ease-out;
+            margin-top: 2rem;
+        }
+
+        .message h2 {
+            color: var(--pink);
+            margin: 0 0 1rem 0;
+            font-size: 1.8rem;
+        }
+
+        .message p {
+            line-height: 1.6;
+            margin: 1rem 0;
+            color: #333;
+        }
+
+        .signature {
+            text-align: right;
+            font-style: italic;
+            color: var(--pink);
+            font-weight: bold;
+            margin-top: 1.5rem;
+        }
+
+        .hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .heart {
+            position: absolute;
+            color: var(--pink);
+            font-size: 1.5rem;
+            animation: float 3s infinite linear;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(1rem); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 480px) {
+            button {
+                min-width: 120px;
+                padding: 0.8rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container">
+        <h1>🦋 Crush mo ko? 🦋</h1>
+        <div class="buttons-container">
+            <button id="yesBtn">Yes! 💖</button>
+            <button id="noBtn">No 😒</button>
+        </div>
+        <div class="message" id="message">
+            <h2>🎉 Yieee sabi na crush mo'ko eh! 🎂</h2>
+            <p>Hi Ry! Btw, happy happy birthday to youuu~ 🥳<br>
+            Ginawa q tong website na ito for u only HAHAHAHAH 😝<br>
+            Sounds crazy noh? 😆</p>
+            <p>Wish q sayo:<br>
+            Good health, be yourself always,<br>
+            be confident and stay kind! 💝</p>
+            <p class="signature">from: Wookie 🐾</p>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        let isMoving = false;
+
+        function getRandomPosition() {
+            const btnWidth = noBtn.offsetWidth;
+            const btnHeight = noBtn.offsetHeight;
+            const buffer = 20;
+            
+            return {
+                x: buffer + Math.random() * (window.innerWidth - btnWidth - buffer * 2),
+                y: buffer + Math.random() * (window.innerHeight - btnHeight - buffer * 2)
+            };
+        }
+
+        function moveButton() {
+            if(isMoving) return;
+            isMoving = true;
+            
+            const pos = getRandomPosition();
+            const rotation = Math.random() * 15 - 7.5;
+            
+            noBtn.style.left = pos.x + 'px';
+            noBtn.style.top = pos.y + 'px';
+            noBtn.style.transform = `rotate(${rotation}deg) scale(1.05)`;
+            
+            setTimeout(() => {
+                noBtn.style.transform = 'scale(1)';
+                isMoving = false;
+            }, 600);
+        }
+
+        // Set initial positions
+        yesBtn.style.left = '50%';
+        yesBtn.style.top = '50%';
+        yesBtn.style.transform = 'translate(-120%, -50%)';
+        moveButton();
+
+        // Event listeners
+        noBtn.addEventListener('mouseenter', moveButton);
+        noBtn.addEventListener('click', moveButton);
+        noBtn.addEventListener('touchstart', moveButton);
+
+        yesBtn.addEventListener('click', () => {
+            document.querySelector('.buttons-container').style.display = 'none';
+            message.style.display = 'block';
+            createHearts();
+        });
+
+        function createHearts() {
+            for (let i = 0; i < 33; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                heart.style.fontSize = Math.random() * 16 + 12 + 'px';
+                hearts.appendChild(heart);
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            noBtn.style.transition = 'none';
+            moveButton();
+            setTimeout(() => {
+                noBtn.style.transition = 'all 0.6s cubic-bezier(0.18, 0.89, 0.32, 1.28)';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
